@@ -37,12 +37,11 @@ export async function analyzeCode(code, analysisType) {
 
     FORMATO DA RESPOSTA:
     - Use apenas parágrafos normais
-    Seja CONCISO. Retorne apenas:
+    Retorne apenas:
     
     ❌ PRINCIPAL PROBLEMA:
     
-    ✅ SOLUÇÃO RÁPIDA:
-    
+    ✅ SOLUÇÃO:
         `;
   try {
     const model = geminiClinet.getGenerativeModel({
