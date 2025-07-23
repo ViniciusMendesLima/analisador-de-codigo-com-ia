@@ -31,6 +31,12 @@ main {
   font-size: 16px;
 }
 
+.input-group{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .code-textarea {
   width: 100%;
   min-height: 200px;
@@ -38,6 +44,22 @@ main {
   border: 2px solid #e0e0e0;
   border-radius: 10px;
   margin-bottom: 20px;
+}
+
+.details{
+  font-size: 16px;
+}
+
+.select-details-level{
+  width: 50%;
+  min-height: 50px;
+  background: linear-gradient(135deg,#a1a8c9 0%, #b99fd3 100%);
+  padding: 10px;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
 }
 
 .analyze-button {

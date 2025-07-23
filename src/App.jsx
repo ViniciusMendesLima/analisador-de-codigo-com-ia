@@ -7,8 +7,10 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState("");
   const [error, setError] = useState("");
+  const [analysisType, setAnalysisType] = useState('quick');
 
   const handleAnalyze = async () => {
+    
     if (!code.trim()) return;
 
     setLoading(true);
@@ -16,7 +18,7 @@ function App() {
     setResult("");
 
     try {
-      const analysis = await analyzeCode(code);
+      const analysis = await analyzeCode(code, analysisType);
       setResult(analysis);
     } catch (error) {
       setError(error.message);
@@ -37,6 +39,15 @@ function App() {
             value={code}
             onChange={(e) => setCode(e.target.value)}
           ></textarea>
+          <h3 className="details">Nível de detalhe</h3>
+          <select className="select-details-level"
+            value={analysisType}
+            onChange={(e) => setAnalysisType(e.target.value)}
+          >
+            <option value="quick">Análise Rápida</option>
+            <option value="detailed">Detalhada</option>
+            <option value="beginner">Para Iniciantes</option>
+          </select>
         </div>
         <button
           className="analyze-button"

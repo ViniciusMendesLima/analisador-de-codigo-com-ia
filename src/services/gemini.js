@@ -4,9 +4,12 @@ const geminiClinet = new GoogleGenerativeAI(
   import.meta.env.VITE_GEMINI_API_KEY
 );
 
-export async function analyzeCode(code) {
+export async function analyzeCode(code, analysisType) {
+    console.log(analysisType);
+    
   const prompt = `
         Analise o seguinte código e forneça sugestões de melhorias de forma didática e clara:
+        Tipo de análise: ${analysisType === 'quick' ? 'Seja conciso' : 'Detalhe cada aspecto'}
    
     ${code}
    
