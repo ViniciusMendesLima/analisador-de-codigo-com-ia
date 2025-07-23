@@ -5,11 +5,18 @@ const geminiClinet = new GoogleGenerativeAI(
 );
 
 export async function analyzeCode(code, analysisType) {
-    console.log(analysisType);
+    let selectChoose = ""
+    if (analysisType == "quick") {
+        selectChoose = "Seja conciso"
+    } else if (analysisType === "detailed") {
+        selectChoose = "Detalhe cada aspecto"
+    } else {
+        selectChoose = "Explique de forma simples para iniciantes em programação"
+    }
     
   const prompt = `
         Analise o seguinte código e forneça sugestões de melhorias de forma didática e clara:
-        Tipo de análise: ${analysisType === 'quick' ? 'Seja conciso' : 'Detalhe cada aspecto'}
+        Tipo de análise: ${selectChoose}
    
     ${code}
    
@@ -36,7 +43,6 @@ export async function analyzeCode(code, analysisType) {
     
     ✅ SOLUÇÃO RÁPIDA:
     
-    Máximo 3 frases. Direto ao ponto.
         `;
   try {
     const model = geminiClinet.getGenerativeModel({
