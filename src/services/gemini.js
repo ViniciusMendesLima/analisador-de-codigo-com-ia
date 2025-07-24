@@ -5,19 +5,28 @@ const geminiClinet = new GoogleGenerativeAI(
 );
 
 export async function analyzeCode(code, analysisType) {
-    let selectChoose = ""
-    if (analysisType == "quick") {
-        selectChoose = "Forneça uma análise objetiva e direta sobre o código abaixo, destacando os principais pontos fortes e problemas mais relevantes, sem se aprofundar em detalhes."
-    } else if (analysisType === "detailed") {
-        selectChoose = "Realize uma análise completa e minuciosa do código a seguir. Aponte boas práticas, possíveis melhorias, padrões utilizados, problemas de performance, legibilidade e segurança. Use exemplos e explique tecnicamente cada ponto."
-    } else {
-        selectChoose = "Analise o código abaixo de forma simples e educativa, como se estivesse explicando para alguém que está começando na programação. Evite termos técnicos complexos e utilize analogias e exemplos para facilitar o entendimento."
-    }
-    
+  let selectChoose = "";
+  let objectiveAnalysis = "";
+  if (analysisType == "quick") {
+    selectChoose =
+      "Forneça uma análise objetiva e direta sobre o código abaixo, destacando os principais pontos fortes e problemas mais relevantes, sem se aprofundar em detalhes.";
+    objectiveAnalysis = "Máximo 3 frases. Direto ao ponto.";
+  } else if (analysisType === "detailed") {
+    selectChoose =
+      "Realize uma análise completa e minuciosa do código a seguir. Aponte boas práticas, possíveis melhorias, padrões utilizados, problemas de performance, legibilidade e segurança. Use exemplos e explique tecnicamente cada ponto.";
+    objectiveAnalysis =
+      "Seja técnico, claro e completo. Utilize quantas frases forem necessárias.";
+  } else {
+    selectChoose =
+      "Analise o código abaixo de forma simples e educativa, como se estivesse explicando para alguém que está começando na programação. Evite termos técnicos complexos e utilize analogias e exemplos para facilitar o entendimento.";
+    objectiveAnalysis =
+      "Explique com linguagem acessível. Use frases curtas, comparações e exemplos práticos.";
+  }
+
   const prompt = `
-        Analise o seguinte código e forneça sugestões de melhorias de forma didática e clara:
-        
-        ${selectChoose}
+    Analise o seguinte código e forneça sugestões de melhorias de forma didática e clara:
+
+    ${selectChoose}
    
     ${code}
    
@@ -38,14 +47,16 @@ export async function analyzeCode(code, analysisType) {
 
     FORMATO DA RESPOSTA:
     - Use apenas parágrafos normais
+
+    ${objectiveAnalysis}
+
     Retorne apenas:
     
     ❌ PRINCIPAL PROBLEMA:
     
     ✅ SOLUÇÃO:
         `;
-        console.log(prompt);
-        
+
   try {
     const model = geminiClinet.getGenerativeModel({
       model: "gemini-1.5-flash",
@@ -58,6 +69,8 @@ export async function analyzeCode(code, analysisType) {
     return response.text();
   } catch (error) {
     console.error("erro ao analisar código", error);
-    throw new Error("erro ao conectar com a IA. Verifique sua chave de API e tente novamente")
+    throw new Error(
+      "erro ao conectar com a IA. Verifique sua chave de API e tente novamente"
+    );
   }
 }
