@@ -26,7 +26,7 @@ function App() {
       setLoading(false);
     }
   };
-
+  
   return (
     <main>
       <div className="container">

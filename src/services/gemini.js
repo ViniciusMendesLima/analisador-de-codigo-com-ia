@@ -7,16 +7,17 @@ const geminiClinet = new GoogleGenerativeAI(
 export async function analyzeCode(code, analysisType) {
     let selectChoose = ""
     if (analysisType == "quick") {
-        selectChoose = "Seja conciso"
+        selectChoose = "Forneça uma análise objetiva e direta sobre o código abaixo, destacando os principais pontos fortes e problemas mais relevantes, sem se aprofundar em detalhes."
     } else if (analysisType === "detailed") {
-        selectChoose = "Detalhe cada aspecto"
+        selectChoose = "Realize uma análise completa e minuciosa do código a seguir. Aponte boas práticas, possíveis melhorias, padrões utilizados, problemas de performance, legibilidade e segurança. Use exemplos e explique tecnicamente cada ponto."
     } else {
-        selectChoose = "Explique de forma simples para iniciantes em programação"
+        selectChoose = "Analise o código abaixo de forma simples e educativa, como se estivesse explicando para alguém que está começando na programação. Evite termos técnicos complexos e utilize analogias e exemplos para facilitar o entendimento."
     }
     
   const prompt = `
         Analise o seguinte código e forneça sugestões de melhorias de forma didática e clara:
-        Tipo de análise: ${selectChoose}
+        
+        ${selectChoose}
    
     ${code}
    
@@ -43,6 +44,8 @@ export async function analyzeCode(code, analysisType) {
     
     ✅ SOLUÇÃO:
         `;
+        console.log(prompt);
+        
   try {
     const model = geminiClinet.getGenerativeModel({
       model: "gemini-1.5-flash",
