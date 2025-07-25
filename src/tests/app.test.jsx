@@ -77,7 +77,7 @@ describe("Jest", () => {
   });
 
   it("Se ao digitar um código e clicar no botão, a função analyzeCode é chamada corretamente", async () => {
-    //fingimos que a função analyzeCode respondeu com sucesso e retornou erro
+    //fingimos que a função analyzeCode respondeuretornou erro
     geminiService.analyzeCode.mockRejectedValue(new Error("Erro na IA"));
 
     render(<App />);
